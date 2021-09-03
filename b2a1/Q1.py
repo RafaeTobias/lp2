@@ -1,0 +1,10 @@
+file = open("sequencia.txt","r")
+arq = file.readlines()
+file.seek(0,0)
+for i in range (0, len(file.readlines())):
+    print("\nLinha", i+1, ":", arq[i])
+    print("quantidade de A na linha", i, ":", arq[i].count('A'))
+    print("quantidade de T na linha", i, ":", arq[i].count('T'))
+    print("quantidade de G na linha", i, ":", arq[i].count('G'))
+    print("quantidade de C na linha", i, ":", arq[i].count('C'))
+file.close()
