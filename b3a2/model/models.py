@@ -11,28 +11,23 @@ Base = declarative_base()
 
 class Usuario(Base):
 
-    __tablename__ = 'b3a1_usuario'
+    __tablename__ = 'b3a2_usuario'
 
     id = Column(Integer, primary_key=True)
     email = Column(String(255), nullable=False)
     senha = Column(String(45), nullable=False)
-    '''
-    #referencia para atividade
-    atividade = relationship("Atividade", backref='Usuario')
-    comentario = relationship("Comentario", backref="Usuario")
-    '''
 
     def _repr_(self):
         return f'Usuario {self.id}'
 
 class Atividade(Base):
 
-    __tablename__ = 'b3a1_atividade'
+    __tablename__ = 'b3a2_atividade'
 
     id = Column(Integer, primary_key=True)
     
     #criando chave estrangeira
-    usuario_id = Column(Integer, ForeignKey('b3a1_usuario.id'))
+    usuario_id = Column(Integer, ForeignKey('b3a2_usuario.id'))
 
     data = Column(Date, nullable=False)
     inicio = Column(Time, nullable=False)
@@ -48,11 +43,11 @@ class Atividade(Base):
 
 class Comentario(Base):
 
-    __tablename__ = 'b3a1_comentario'
+    __tablename__ = 'b3a2_comentario'
     
     id = Column(Integer, primary_key=True)
-    usuario_id = Column(Integer, ForeignKey('b3a1_usuario.id'))
-    atividade_id = Column(Integer, ForeignKey('b3a1_atividade.id'))
+    usuario_id = Column(Integer, ForeignKey('b3a2_usuario.id'))
+    atividade_id = Column(Integer, ForeignKey('b3a2_atividade.id'))
     texto_comentario = Column(String(555), nullable = False)
 
     usuario = relationship("Usuario", backref="Comentario")
@@ -63,10 +58,10 @@ class Comentario(Base):
 
 class Curtida(Base):
     
-    __tablename__ = 'b3a1_curtida'
+    __tablename__ = 'b3a2_curtida'
     
-    usuario_id = Column(Integer, ForeignKey('b3a1_usuario.id'), primary_key=True)
-    atividade_id = Column(Integer, ForeignKey('b3a1_atividade.id'), primary_key=True)
+    usuario_id = Column(Integer, ForeignKey('b3a2_usuario.id'), primary_key=True)
+    atividade_id = Column(Integer, ForeignKey('b3a2_atividade.id'), primary_key=True)
 
     usuario = relationship("Usuario", backref="Curtida")
     atividade = relationship("Atividade", backref="Curtitda")
@@ -74,12 +69,3 @@ class Curtida(Base):
     def _repr_(self):
         return f'Curtida {self.usuario_id}'   
 
-
-'''
-class Association(Base):
-    __tablename__ = 'ass'
-    left_id = Column(ForeignKey('left.id'), primary_key=True)
-    right_id = Column(ForeignKey('right.id'), primary_key=True)
-    extra_data = Column(String(50))
-    child = relationship("Child")
-'''
